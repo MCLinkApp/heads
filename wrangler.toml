@@ -1,0 +1,8 @@
+name = "heads"
+main = "src/index.ts"
+compatibility_date = "2023-12-18"
+
+# Docs: https://developers.cloudflare.com/workers/runtime-apis/kv
+[[kv_namespaces]]
+binding = "KV_STORE"
+id = "bf4f57db605043b59e1c6b6eb2d3bef7"

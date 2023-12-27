@@ -1,0 +1,21 @@
+{
+  "name": "heads",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "@types/pngjs": "^6.0.4",
+    "prettier": "^3.1.1",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "@stevebel/png": "^1.5.1",
+    "hono": "^3.11.11"
+  }
+}
