@@ -49,7 +49,13 @@ app.get(
       console.log(`Player ${uuid} not found`);
       return c.text("Player not found", 404);
     } else if (profileResponse.status !== 200) {
-      console.log(`Mojang API error: ${profileResponse.status}`);
+      console.error(`Mojang API error: ${profileResponse.status}`);
+      console.error(
+        "Response headers: ",
+        JSON.stringify(Object.fromEntries(profileResponse.headers.entries())),
+      );
+      console.error("Response body: ", await profileResponse.text());
+
       return c.text("Mojang API error", 500);
     }
 

@@ -27,7 +27,7 @@ Example usage:
 
 =====================================================================
 The game Minecraft is created by Mojang AB 
-and is not affiliated with this site.                (c) sexnine 2023
+and is not affiliated with this site.                (c) sexnine 2024
 `;
 
 export const defaultHeads = {
