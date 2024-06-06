@@ -1,7 +1,11 @@
 import { DefaultSkinType } from "./types";
 
 export const uuidToDefaultSkinType = (uuid: string): DefaultSkinType =>
-  parseInt(uuid[7], 16) ^ parseInt(uuid[15], 16) ^ parseInt(uuid[23], 16) ^ parseInt(uuid[31], 16);
+  (parseInt(uuid[7], 16) ^
+    parseInt(uuid[15], 16) ^
+    parseInt(uuid[23], 16) ^
+    parseInt(uuid[31], 16)) %
+  2;
 
 export const colorSig = (array: number[], offset: number): number =>
   array[offset] * 2 ** (8 * 3) +
