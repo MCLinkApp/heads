@@ -11,6 +11,8 @@ import { COLOR_TYPES } from "@stevebel/png/lib/helpers/color-types";
 
 type Bindings = {
   KV_STORE: KVNamespace;
+  MOJANG_SESSION_PROXY_SERVER: string;
+  PROXY_AUTH: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -45,8 +47,10 @@ app.get(
     timings.start("total");
     timings.start("profile-req");
     const profileResponse = await fetch(
-      `https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`,
-      { headers: { "User-Agent": "CLHeads/1.0" } },
+      `${c.env.MOJANG_SESSION_PROXY_SERVER}/session/minecraft/profile/${uuid}`,
+      {
+        headers: { Authorization: c.env.PROXY_AUTH, "User-Agent": "CLHeads/1.0" },
+      },
     );
     timings.stop("profile-req");
 

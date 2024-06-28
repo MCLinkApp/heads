@@ -1,6 +1,9 @@
 name = "heads"
 main = "src/index.ts"
 compatibility_date = "2023-12-18"
+keep_vars = true
+
+[vars]
 
 # Docs: https://developers.cloudflare.com/workers/runtime-apis/kv
 [[kv_namespaces]]
