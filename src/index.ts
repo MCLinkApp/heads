@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { validator } from "hono/validator";
 import { cors } from "hono/cors";
+import { cache } from "hono/cache";
 import { defaultHeads, indexText } from "./consts";
 import { MojangMinecraftProfileResponse, MojangMinecraftTexturesProperty } from "./types";
 import { colorSig, Timings, uuidToDefaultSkinType } from "./util";
@@ -26,6 +27,10 @@ app.get("/", (c) => c.text(indexText));
 
 app.get(
   "/:uuid",
+  cache({
+    cacheName: "head-req-cache",
+    cacheControl: "public, max-age=600, stale-while-revalidate=2628000",
+  }),
   validator("param", (value, c) => {
     let uuid = value["uuid"].trim().replaceAll("-", "");
     uuid.endsWith(".png") && (uuid = uuid.slice(0, -4));
@@ -143,7 +148,7 @@ app.get(
 
           c.executionCtx.waitUntil(
             c.env.KV_STORE.put("head-cache:" + skinUrlHash, headImage, {
-              expirationTtl: 60 * 60 * 24 * 7,
+              expirationTtl: 60 * 60 * 24 * 30,
             }),
           );
         }
@@ -160,7 +165,6 @@ app.get(
       status: statusCode,
       headers: {
         "Content-Type": "image/png",
-        "Cache-Control": "public, max-age=600",
         ...(sendTimings && { "Server-Timing": timings.toHeader() }),
       },
     });
